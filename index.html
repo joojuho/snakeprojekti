@@ -92,7 +92,6 @@
                 );
             }
 
-           swapped = false;
         };
 
         drawGame();
@@ -111,8 +110,21 @@
             const head = snake[0];
             const newHead = { x: head.x + direction.x, y: head.y + direction.y };
             snake.unshift(newHead);
-            snake.pop();
-             drawGame();
+
+            if (newHead.x === food.x && newHead.y === food.y) {
+                score ++;
+
+                let newFood;
+                do {
+                    newFood = { x: Math.floor(Math.random() * tileCount), y: Math.floor(Math.random() * tileCount) };
+                } while (snake.some(part => part.x === newFood.x && part.y === newFood.y));
+                food = newFood;
+
+            } else {
+                snake.pop();
+            }
+            
+            drawGame();
         }
         setInterval(moveSnake, 150);
 
@@ -121,6 +133,9 @@
         
 
         // Step 3: Eating and growing
+
+
+
         // Step 4: Game over
         // Step 5: Improvements
         //
