@@ -58,6 +58,10 @@
         }
 
         document.addEventListener("keydown", (event) => {
+            if (!started) {
+                started = true;
+                drawGame();
+            }
 
             switch (event.key.toLowerCase()) {
                 case "w":
@@ -112,7 +116,10 @@
             const progress = (defaultSpeed - currentSpeed) / (defaultSpeed - minSpeed);
             canvas.style.borderColor = `hsl(${120 * (1 - progress)}, 100%, 50%)`;
 
-            info.textContent = `Score: ${score}`;
+            info.textContent = `Score: ${score} \nControls: W/A/S/D or Arrow Keys to move, R to restart`;
+            if (!started) {
+                info.textContent = `Press Any Key to Start \nControls: W/A/S/D or Arrow Keys to move, R to restart`;
+            }
 
             if (gameOver) {
                 ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
