@@ -35,6 +35,12 @@
         ];
         let direction = { x: 1, y: 0 };
 
+        let gameTimer = null;
+        let defaultSpeed = 150;
+        let currentSpeed = defaultSpeed;
+        let minSpeed = 50;
+        let speedIncrement = 5;
+
         let bufferedDirection = null;
 
         function resetGame() {
@@ -166,13 +172,23 @@
                 } while (snake.some(part => part.x === newFood.x && part.y === newFood.y));
                 food = newFood;
 
+                if (currentSpeed > minSpeed) {
+                    currentSpeed -= speedIncrement;
+                    clearInterval(gameTimer);
+                    gameTimer = setInterval(moveSnake, currentSpeed);
+                }
+
             } else {
                 snake.pop();
             }
             
             drawGame();
         }
-        setInterval(moveSnake, 150);
+
+       
+
+        gameTimer = setInterval(moveSnake, defaultSpeed);
+
 
         // Step 2: Keyboard controls (arrow keys)
 
