@@ -37,6 +37,19 @@
 
         let bufferedDirection = null;
 
+        function resetGame() {
+            snake = [
+                { x: 10, y: 10 },
+                { x: 9, y: 10 },
+                { x: 8, y: 10 }
+            ];
+            direction = { x: 1, y: 0 };
+            bufferedDirection = null;
+            food = { x: 15, y: 15 };
+            score = 0;
+            gameOver = false;
+        }
+
         document.addEventListener("keydown", (event) => {
 
             switch (event.key.toLowerCase()) {
@@ -57,11 +70,15 @@
                 case "arrowright":
                     if (direction.x === 0) bufferedDirection = { x: 1, y: 0 };
                     break;
+                case "r":
+                    resetGame();
+                    break;
             }
         });
 
         let food = { x: 15, y: 15 };
         let score = 0;
+        let gameOver = false;
 
         // ===== DRAWING =====
         const drawGame = () => {
@@ -87,6 +104,15 @@
 
             info.textContent = `Score: ${score}`;
 
+            if (gameOver) {
+                ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = "white";
+                ctx.font = "30px Arial";
+                ctx.textAlign = "center";
+                ctx.fillText(`Game Over, \nPress R to Restart \nFinal Score: ${score}`, canvas.width / 2, canvas.height / 2);
+            }
+
         };
 
         drawGame();
@@ -103,6 +129,8 @@
 
         function moveSnake() {
 
+             if (gameOver) return;
+
             if (bufferedDirection) {
                 direction = bufferedDirection;
                 bufferedDirection = null;
@@ -111,8 +139,11 @@
             const head = snake[0];
             const newHead = { x: head.x + direction.x, y: head.y + direction.y };
 
+           
+
             if (newHead.x < 0 || newHead.x >= tileCount || newHead.y < 0 || newHead.y >= tileCount || snake.some(part => part.x === newHead.x && part.y === newHead.y)) {
-                
+                gameOver = true;
+                return;
             }
 
             snake.unshift(newHead);
