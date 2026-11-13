@@ -52,6 +52,8 @@
             currentSpeed = defaultSpeed;
             clearInterval(gameTimer);
             gameTimer = setInterval(moveSnake, currentSpeed);
+            canvas.style.borderColor = "#22c55e";
+            drawGame();
             gameOver = false;
         }
 
@@ -106,6 +108,9 @@
                     gridSize, gridSize
                 );
             }
+
+            const progress = (defaultSpeed - currentSpeed) / (defaultSpeed - minSpeed);
+            canvas.style.borderColor = `hsl(${120 * (1 - progress)}, 100%, 50%)`;
 
             info.textContent = `Score: ${score}`;
 
