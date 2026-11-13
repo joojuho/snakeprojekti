@@ -8,3 +8,7 @@ body {
 canvas {
     border: 2px solid #22c55e;
 }
+
+#info {
+    white-space: pre-line;
+}
