@@ -153,7 +153,7 @@
 
         function moveSnake() {
 
-             if (gameOver) return;
+             if (gameOver || !started) return;
 
             if (bufferedDirection) {
                 direction = bufferedDirection;
