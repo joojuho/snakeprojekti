@@ -49,6 +49,9 @@
             bufferedDirection = null;
             food = { x: 15, y: 15 };
             score = 0;
+            currentSpeed = defaultSpeed;
+            clearInterval(gameTimer);
+            gameTimer = setInterval(moveSnake, currentSpeed);
             gameOver = false;
         }
 
