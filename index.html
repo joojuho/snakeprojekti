@@ -48,17 +48,14 @@
                 case "s":
                 case "arrowdown":
                     if (direction.y === 0) bufferedDirection = { x: 0, y: 1 };
-                    swapped = true;
                     break;
                 case "a":
                 case "arrowleft":
                     if (direction.x === 0) bufferedDirection = { x: -1, y: 0 };
-                    swapped = true;
                     break;
                 case "d":
                 case "arrowright":
                     if (direction.x === 0) bufferedDirection = { x: 1, y: 0 };
-                    swapped = true;
                     break;
             }
         });
@@ -68,11 +65,6 @@
 
         // ===== DRAWING =====
         const drawGame = () => {
-
-            if (bufferedDirection) {
-                direction = bufferedDirection;
-                bufferedDirection = null;
-            }
 
             ctx.clearRect(0, 0,
                 canvas.width, canvas.height);
@@ -92,7 +84,7 @@
                     gridSize, gridSize
                 );
             }
-            
+
             info.textContent = `Score: ${score}`;
 
         };
@@ -110,9 +102,22 @@
         // Step 1: Movement (game loop)
 
         function moveSnake() {
+
+            if (bufferedDirection) {
+                direction = bufferedDirection;
+                bufferedDirection = null;
+            }
+
             const head = snake[0];
             const newHead = { x: head.x + direction.x, y: head.y + direction.y };
+
+            if (newHead.x < 0 || newHead.x >= tileCount || newHead.y < 0 || newHead.y >= tileCount || snake.some(part => part.x === newHead.x && part.y === newHead.y)) {
+                
+            }
+
             snake.unshift(newHead);
+
+            
 
             if (newHead.x === food.x && newHead.y === food.y) {
                 score ++;
