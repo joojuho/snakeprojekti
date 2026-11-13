@@ -143,6 +143,7 @@
 
             if (newHead.x < 0 || newHead.x >= tileCount || newHead.y < 0 || newHead.y >= tileCount || snake.some(part => part.x === newHead.x && part.y === newHead.y)) {
                 gameOver = true;
+                drawGame();
                 return;
             }
 
