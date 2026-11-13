@@ -25,6 +25,7 @@
         const ctx = canvas.getContext("2d");
         const gridSize = 20;
         const tileCount = canvas.width / gridSize;
+        const info = document.getElementById("info");
 
         // ===== INITIAL STATE =====
         let snake = [
@@ -91,6 +92,8 @@
                     gridSize, gridSize
                 );
             }
+            
+            info.textContent = `Score: ${score}`;
 
         };
 
