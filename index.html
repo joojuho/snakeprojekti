@@ -35,7 +35,7 @@
         let direction = { x: 1, y: 0 };
 
         document.addEventListener("keydown", (event) => {
-            switch (event.key.toLowerCase) {
+            switch (event.key.toLowerCase()) {
                 case "w":
                 case "arrowup":
                     if (direction.y === 0) direction = { x: 0, y: -1 };
